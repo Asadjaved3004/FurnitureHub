@@ -1,424 +1,346 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Furniture Hub</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Furniture Hub</title>
 
-  <style>
-    * { box-sizing: border-box; }
+<style>
+* { box-sizing: border-box; }
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-    }
-
-    header {
-      background: #333;
-      color: white;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    nav {
-      margin-top: 10px;
-    }
-
-    nav a {
-      color: white;
-      margin: 5px 10px;
-      text-decoration: none;
-      display: inline-block;
-	  align-items:center;
-    }
-
-    /* Responsive Slider */
-    .slider {
-      position: relative;
-      width: 100%;
-      height: 60vh;
-      overflow: hidden;
-    }
-
-    .slide {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-    }
-
-    .slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .active {
-      opacity: 1;
-    }
-
-    section {
-      padding: 30px 20px;
-    }
-
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-
-    .card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-
-    .card h3 {
-      padding: 10px;
-      margin: 0;
-      font-size: 16px;
-    }
-
-    footer {
-      background: #333;
-      color: white;
-      text-align: center;
-      padding: 10px;
-    }
-
-    /* Mobile */
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .slider {
-        height: 40vh;
-      }
-
-      nav {
-        width: 100%;
-      }
-
-      nav a {
-        display: block;
-        margin: 8px 0;
-      }
-    }
-    #contact {
-  padding: 40px 20px;
-  background: #f5f5f5;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
 
-#contact h2 {
-  text-align: center;
-  margin-bottom: 30px;
+/* HEADER */
+header {
+  background: #333;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+nav a {
+  color: white;
+  margin: 5px 10px;
+  text-decoration: none;
+}
+
+/* SLIDER */
+.slider {
+  position: relative;
+  width: 100%;
+  height: 65vh;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.active {
+  opacity: 1;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 20%;
+  left: 10%;
+  color: white;
+  background: rgba(0,0,0,0.5);
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 20px;
+}
+
+/* SECTIONS */
+section {
+  padding: 30px 20px;
+}
+
+/* PRODUCTS */
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background: white;
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card h3 {
+  padding: 10px;
+  margin: 0;
+}
+
+/* CONTACT */
+#contact {
+  background: #f5f5f5;
 }
 
 .contact-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
+  gap: 20px;
   max-width: 1000px;
   margin: auto;
-}
-
-.contact-info {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .contact-form {
   background: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
 }
 
 .contact-form input,
 .contact-form textarea {
-  margin-bottom: 12px;
+  width: 100%;
+  margin-bottom: 10px;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  outline: none;
 }
 
 .contact-form button {
+  width: 100%;
   padding: 10px;
   background: #333;
   color: white;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
 }
 
-.contact-form button:hover {
-  background: #555;
+/* FOOTER */
+footer {
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
 }
- .call-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: green;
-      color: white;
-      padding: 12px 16px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-  </style>
+
+.call-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: green;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 50px;
+  text-decoration: none;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .slider {
+    height: 40vh;
+  }
+
+  .overlay {
+    font-size: 14px;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <div style="display:flex; align-items:center; gap:10px;">
-    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo" style="width:40px; height:40px; object-fit:contain;">
-    <h1 style="margin:0;">Furniture Hub</h1>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" width="40">
+    <h1>Furniture Hub</h1>
   </div>
+
   <nav>
     <a href="#home">Home</a>
     <a href="#about">About</a>
-    <a href="#services">Services</a>
-    <a href="#contact">Contact Us</a>
+    <a href="#our-services">Services</a>
+    <a href="#contact">Contact</a>
   </nav>
-  <a href="tel:03161550026" style="
-  background: green;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 20px;
-  text-decoration: none;
-  margin-left: 10px;
-">
-  📞 Call Now
-</a>
+
+  <a href="tel:03161550026" style="background:green;color:white;padding:8px 12px;border-radius:20px;text-decoration:none;">
+    📞 Call Now
+  </a>
 </header>
 
-<!-- Responsive Slider -->
-<!-- Modern Furniture Slider -->
+<!-- SLIDER -->
 <div class="slider" id="home">
 
   <div class="slide active">
-    <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1600&q=80" alt="Luxury Sofa">
-    <div class="overlay">Luxury Sofas Collection</div>
+    <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1600&q=80">
+    <div class="overlay">Luxury Sofas</div>
   </div>
 
   <div class="slide">
-    <img src="https://images.unsplash.com/photo-1501045661006-fcebe0257c3f?auto=format&fit=crop&w=1600&q=80" alt="Modern Living Room">
-    <div class="overlay">Modern Living Room Designs</div>
+    <img src="https://images.unsplash.com/photo-1501045661006-fcebe0257c3f?auto=format&fit=crop&w=1600&q=80">
+    <div class="overlay">Modern Living Room</div>
   </div>
 
   <div class="slide">
-    <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=80" alt="Bedroom Furniture">
-    <div class="overlay">Comfortable Bedroom Setup</div>
+    <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=80">
+    <div class="overlay">Comfortable Bedroom</div>
   </div>
 
   <div class="slide">
-    <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1600&q=80" alt="Dining Set">
-    <div class="overlay">Elegant Dining Collection</div>
+    <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1600&q=80">
+    <div class="overlay">Dining Collection</div>
   </div>
 </div>
 
-<!-- Services Listing Section -->
+<!-- SERVICES -->
 <section id="our-services">
-  <h2>Our Services</h2>
+<h2>Our Services</h2>
 
-  <div class="products">
+<div class="products">
 
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&q=80" alt="Custom Furniture Design">
-      <h3>Custom Furniture Design</h3>
-      <p style="padding: 0 10px 10px;">We create furniture based on your needs and space.</p>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80" alt="Home Delivery">
-      <h3>Home Delivery</h3>
-      <p style="padding: 0 10px 10px;">Fast and secure delivery at your doorstep.</p>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80" alt="Furniture Repair">
-      <h3>Furniture Repair</h3>
-      <p style="padding: 0 10px 10px;">Repair and maintenance for all types of furniture.</p>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1505691723518-36a5ac3b2f85?auto=format&fit=crop&w=800&q=80" alt="Interior Consultation">
-      <h3>Interior Consultation</h3>
-      <p style="padding: 0 10px 10px;">Expert advice to design your home beautifully.</p>
-    </div>
-
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&q=80">
+    <h3>Custom Design</h3>
   </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80">
+    <h3>Home Delivery</h3>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80">
+    <h3>Furniture Repair</h3>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1505691723518-36a5ac3b2f85?auto=format&fit=crop&w=800&q=80">
+    <h3>Interior Consultation</h3>
+  </div>
+
+</div>
 </section>
 
-<section id="services">
-  <h2>Our Products</h2>
+<!-- PRODUCTS -->
+<section>
+<h2>Our Products</h2>
 
-  <h3>Sofas</h3>
-  <div class="products">
-    <div class="card">
-      <img src="images\sofa.jpeg" alt="Modern Sofa" loading="lazy" referrerpolicy="no-referrer">
-      <h3>Modern Sofa</h3>
-    </div>
-    <div class="card">
-      <img src="images\sofa1.jpeg" alt="Classic Sofa" loading="lazy" referrerpolicy="no-referrer">
-      <h3>Classic Sofa</h3>
-    </div>
+<div class="products">
+  <div class="card">
+    <img src="images/sofa.jpeg">
+    <h3>Modern Sofa</h3>
   </div>
 
-  <h3>Beds</h3>
-  <div class="products">
-    <div class="card">
-      <img src="images\image2.jpeg" alt="King Size Bed" loading="lazy" referrerpolicy="no-referrer">
-      <h3>King Size Bed</h3>
-    </div>
-    <div class="card">
-      <img src="images\image3.jpeg" alt="Wooden Bed" loading="lazy" referrerpolicy="no-referrer">
-      <h3>Wooden Bed</h3>
-    </div>
+  <div class="card">
+    <img src="images/sofa1.jpeg">
+    <h3>Classic Sofa</h3>
   </div>
 
-  <h3>Dining</h3>
-  <div class="products">
-    <div class="card">
-      <img src="images\dining.jpeg" alt="Dining Table" loading="lazy" referrerpolicy="no-referrer">
-      <h3>Dining Table</h3>
-    </div>
-    <div class="card">
-      <img src="images\dining1.jpeg" alt="Luxury Dining Set" loading="lazy" referrerpolicy="no-referrer">
-      <h3>Luxury Dining Set</h3>
-    </div>
+  <div class="card">
+    <img src="images/image2.jpeg">
+    <h3>King Bed</h3>
   </div>
 
+  <div class="card">
+    <img src="images/image3.jpeg">
+    <h3>Wooden Bed</h3>
+  </div>
+</div>
 </section>
+
+<!-- ABOUT -->
 <section id="about">
-  <h2>About Us</h2>
-  <p>Furniture Hub provides high-quality and modern furniture for homes and offices. We offer stylish sofas, comfortable beds, and elegant dining sets to make your space beautiful.</p>
+<h2>About Us</h2>
 
-  <h3>Owners</h3>
-  <div style="display:flex; flex-wrap:wrap; gap:100px; align-items:center;margin-left:200px;">
-    <div style="text-align:center;">
-      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Sadeer Bashir" style="width:120px; height:120px; border-radius:50%; object-fit:cover;">
-      <p><strong>Sadeer Bashir</strong></p>
-    </div>
+<p>Furniture Hub provides quality furniture for homes and offices.</p>
 
-    <div style="text-align:center;">
-      <img src="images/owner1.png" alt="Asad Javed" style="width:120px; height:120px; border-radius:50%; object-fit:cover;">
-      <p><strong>Asad Javed</strong></p>
-    </div>
+<div style="display:flex;flex-wrap:wrap;gap:30px;justify-content:center;">
+  <div style="text-align:center;">
+    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" width="120">
+    <p>Sadeer Bashir</p>
   </div>
-  </Section>
-  <section id="contact">
-  <h2>Contact Us</h2>
 
-  <div class="contact-container">
-    
-    <iframe 
-    src="https://www.google.com/maps?q=King+Mall+Gujranwala&output=embed" 
-    width="100%" 
-    height="300" 
-    style="border:0; border-radius:10px;" 
-    allowfullscreen="" 
-    loading="lazy">
-  </iframe>
-
-    <form class="contact-form">
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <input type="text" placeholder="Subject">
-      <textarea rows="5" placeholder="Your Message"></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-
+  <div style="text-align:center;">
+    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135789.png" width="120">
+    <p>Asad Javed</p>
   </div>
-</section>
-  <Section>
-
-  <!-- <h3>Location</h3>
-  <p>Near King Mall, Gujranwala</p> -->
-
- 
+</div>
 </section>
 
+<!-- CONTACT -->
+<section id="contact">
+<h2>Contact Us</h2>
+
+<div class="contact-container">
+
+  <form class="contact-form" onsubmit="sendToWhatsApp(); return false;">
+    <input id="name" placeholder="Your Name" required>
+    <input id="email" placeholder="Your Email" required>
+    <input id="subject" placeholder="Subject">
+    <textarea id="message" placeholder="Message" required></textarea>
+    <button type="submit">Send</button>
+  </form>
+
+</div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-  <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:20px; padding:20px; text-align:left;">
-    
-    <div>
-      <h3>Follow Us</h3>
-      <p><a href="#" style="color:white; text-decoration:none;">Facebook</a></p>
-      <p><a href="#" style="color:white; text-decoration:none;">Instagram</a></p>
-      <p><a href="#" style="color:white; text-decoration:none;">TikTok</a></p>
-    </div>
+<p>© 2026 Furniture Hub</p>
+</footer>
 
-    <div>
-      <h3>Quick Links</h3>
-      <p><a href="#home" style="color:white; text-decoration:none;">Home</a></p>
-      <p><a href="#about" style="color:white; text-decoration:none;">About</a></p>
-      <p><a href="#services" style="color:white; text-decoration:none;">Products</a></p>
-    </div>
+<a class="call-btn" href="tel:03161550026">📞 Call</a>
 
-    <div>
-      <h3>FAQ</h3>
-      <p><strong>Do you offer delivery?</strong><br>Yes, we deliver across the city.</p>
-      <p><strong>Can I order custom furniture?</strong><br>Yes, we design according to your needs.</p>
-      <p><strong>What is delivery time?</strong><br>Usually 3–7 working days.</p>
-    </div>
-
-  </div>
-
-  <div style="text-align:center; padding:10px; border-top:1px solid #555;">
-    <p>© 2026 Sadeer Furniture Hub. All rights reserved.</p>
-  </div>
-</footer>.
-<!-- <a class="call-btn" href="tel:03161550026">📞 Call Now</a> -->
 <script>
-  let slides = document.querySelectorAll('.slide');
-  let index = 0;
+let slides = document.querySelectorAll('.slide');
+let index = 0;
 
-  function showSlide() {
-    slides.forEach((slide) => slide.classList.remove('active'));
-    slides[index].classList.add('active');
-    index = (index + 1) % slides.length;
-  }
+setInterval(() => {
+  slides.forEach(s => s.classList.remove('active'));
+  slides[index].classList.add('active');
+  index = (index + 1) % slides.length;
+}, 3000);
 
-  setInterval(showSlide, 3000);
-
-  function sendToWhatsApp() {
+function sendToWhatsApp() {
   let name = document.getElementById("name").value;
   let email = document.getElementById("email").value;
   let subject = document.getElementById("subject").value;
   let message = document.getElementById("message").value;
 
-  let phone = "923161550026"; // your WhatsApp number (country code + number)
+  let phone = "923161550026";
 
   let text =
-`Hello Furniture Hub,
-Name: ${name}
+`Name: ${name}
 Email: ${email}
 Subject: ${subject}
 Message: ${message}`;
 
-  let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(text);
-
-  window.open(url, "_blank");
+  window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(text), "_blank");
 }
 </script>
 
