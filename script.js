@@ -26,4 +26,11 @@ Message: ${message}`;
 }
 
 
+function updateCartCount() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  document.getElementById("cartCount").innerText = cart.length;
+}
+
+updateCartCount();
+
 

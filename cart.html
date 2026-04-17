@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cart</title>
+
+<style>
+body {
+  font-family: Arial;
+  padding: 20px;
+  background: #f5f5f5;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: white;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.item img {
+  width: 80px;
+  border-radius: 8px;
+}
+
+.controls button {
+  padding: 5px 10px;
+  margin: 0 3px;
+  cursor: pointer;
+}
+
+.total {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Your Cart 🛒</h2>
+
+<div id="cartItems"></div>
+
+<div class="total" id="totalPrice"></div>
+<button onclick="openCheckout()" style="padding:12px 20px;background:green;color:white;border:none;border-radius:8px;cursor:pointer;margin-top:15px;">
+  Proceed to Checkout
+</button>
+
+<script>
+    
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function renderCart() {
+  let container = document.getElementById("cartItems");
+  let totalBox = document.getElementById("totalPrice");
+
+  container.innerHTML = "";
+
+  let total = 0;
+
+  if (cart.length === 0) {
+    container.innerHTML = "<p>Your cart is empty</p>";
+    totalBox.innerText = "";
+    return;
+  }
+
+  cart.forEach((item, index) => {
+
+    let itemTotal = item.price * item.qty;
+    total += itemTotal;
+
+    container.innerHTML += `
+      <div class="item">
+        <img src="${item.img}">
+        
+        <div style="flex:1">
+          <h4>${item.name}</h4>
+          <p>Price: Rs ${item.price}</p>
+          <p>Subtotal: Rs ${itemTotal}</p>
+
+          <div class="controls">
+            <button onclick="changeQty(${index}, 'minus')">-</button>
+            <span>${item.qty}</span>
+            <button onclick="changeQty(${index}, 'plus')">+</button>
+            <button onclick="removeItem(${index})">Remove</button>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  totalBox.innerHTML = "Total Amount: Rs " + total;
+}
+
+/* Quantity increase/decrease */
+function changeQty(index, type) {
+  if (type === "plus") {
+    cart[index].qty++;
+  } else {
+    cart[index].qty--;
+    if (cart[index].qty <= 0) {
+      cart.splice(index, 1);
+    }
+  }
+
+  saveCart();
+}
+
+/* Remove item */
+function removeItem(index) {
+  cart.splice(index, 1);
+  saveCart();
+}
+
+/* Save + re-render */
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
+}
+
+renderCart();
+
+function openCheckout() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  if (cart.length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
+
+  window.location.href = "checkout.html";
+}
+
+</script>
+</body>
+</html>

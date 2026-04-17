@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Details</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+}
+
+/* HEADER (same theme as index) */
+header {
+  background: #333;
+  color: white;
+  padding: 15px 20px;
+}
+
+header h1 {
+  margin: 0;
+}
+
+/* MAIN CONTAINER */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 30px 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+/* IMAGE */
+.product-img {
+  flex: 1;
+  min-width: 280px;
+}
+
+.product-img img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* DETAILS */
+.details {
+  flex: 1;
+  min-width: 280px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.details h2 {
+  margin-top: 0;
+}
+
+.price {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.rating {
+  color: orange;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.desc {
+  margin: 15px 0;
+  color: #555;
+}
+
+/* BUTTONS */
+.buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.back-btn {
+  background: #ccc;
+}
+
+.buy-btn {
+  background: green;
+  color: white;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Furniture Hub</h1>
+</header>
+
+<div class="container">
+
+  <!-- IMAGE -->
+  <div class="product-img">
+    <img id="productImg">
+  </div>
+
+  <!-- DETAILS -->
+  <div class="details">
+    <h2 id="title"></h2>
+
+    <div class="price" id="price"></div>
+
+    <div class="rating">⭐⭐⭐⭐☆</div>
+
+    <p class="desc">
+      High quality furniture designed for comfort and style. Perfect for your home and office use.
+    </p>
+
+    <div class="buttons">
+      <button class="back-btn" onclick="goBack()">⬅ Back</button>
+      <button onclick="addToCart()" class="buy-btn">Add to Cart 🛒</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+
+const name = params.get("name");
+const img = params.get("img");
+const price = params.get("price");
+
+document.getElementById("title").innerText = name;
+document.getElementById("productImg").src = img;
+document.getElementById("price").innerText = "Price: Rs " + price;
+
+function goBack() {
+  window.history.back();
+}
+
+function buyNow() {
+  let phone = "923161550026";
+  let text = `I want to buy: ${name} (Rs ${price})`;
+  window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(text), "_blank");
+}
+
+
+// const params = new URLSearchParams(window.location.search);
+
+// const name = params.get("name");
+// const img = params.get("img");
+// const price = params.get("price");
+
+// ADD TO CART
+function addToCart() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  let existing = cart.find(item => item.name === name);
+
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({
+      name: name,
+      img: img,
+      price: price,
+      qty: 1
+    });
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  alert("Added to cart!");
+}
+
+</script>
+
+</body>
+</html>
